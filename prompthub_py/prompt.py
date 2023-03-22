@@ -1,6 +1,8 @@
-from typing import Any, Dict, List
+from typing import Dict, List
 from dataclasses import dataclass
+import json
 
+import yaml
 import requests
 
 
@@ -8,9 +10,6 @@ import requests
 class Prompt:
     """
     Prompt stores all the information of a single prompt.
-
-    :return: _description_
-    :rtype: _type_
     """
 
     name: str
@@ -21,13 +20,29 @@ class Prompt:
     description: str
 
     @staticmethod
-    def from_json(j: Any):
-        """
-        Returns a single Prompt created using json.
-        """
+    def from_json(file: str):
+        data = json.load(file)
         return Prompt(
-            j["name"], j["tags"], j["meta"], j["version"], j["text"], j["description"]
+            data["name"],
+            data["tags"],
+            data["meta"],
+            data["version"],
+            data["text"],
+            data["description"],
         )
+
+    @staticmethod
+    def from_yaml(file: str):
+        with open(file) as f:
+            data = yaml.safe_load(f)
+            return Prompt(
+                data["name"],
+                data["tags"],
+                data["meta"],
+                data["version"],
+                data["text"],
+                data["description"],
+            )
 
     @staticmethod
     def fetch(name: str):
@@ -40,5 +55,7 @@ class Prompt:
         """
         url = f"https://prompthub.deepset.ai/api/prompts/{name}"
         res = requests.get(url, timeout=30)
-        return Prompt.from_json(res.json())
-
+        j = res.json()
+        return Prompt(
+            j["name"], j["tags"], j["meta"], j["version"], j["text"], j["description"]
+        )
