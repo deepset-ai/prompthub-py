@@ -1,3 +1,3 @@
 # PromptHUB Python Client
 
-TODO
+A simple client to fetch prompts from PromptHUB.
