@@ -27,7 +27,7 @@ class Prompt:
             data["tags"],
             data["meta"],
             data["version"],
-            data["text"],
+            data["prompt_text"],
             data["description"],
         )
 
@@ -40,7 +40,7 @@ class Prompt:
                 data["tags"],
                 data["meta"],
                 data["version"],
-                data["text"],
+                data["prompt_text"],
                 data["description"],
             )
 
@@ -57,5 +57,10 @@ class Prompt:
         res = requests.get(url, timeout=30)
         j = res.json()
         return Prompt(
-            j["name"], j["tags"], j["meta"], j["version"], j["text"], j["description"]
+            j["name"],
+            j["tags"],
+            j["meta"],
+            j["version"],
+            j["prompt_text"],
+            j["description"],
         )
