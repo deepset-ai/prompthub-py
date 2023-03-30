@@ -1,9 +1,13 @@
 from typing import Dict, List
 from dataclasses import dataclass
 import json
+import os
 
 import yaml
 import requests
+
+
+MAIN_ENDPOINT = os.getenv("PROMPTHUB_MAIN_ENDPOINT", "http://api.prompthub.deepset.ai")
 
 
 @dataclass
@@ -21,15 +25,16 @@ class Prompt:
 
     @staticmethod
     def from_json(file: str):
-        data = json.load(file)
-        return Prompt(
-            data["name"],
-            data["tags"],
-            data["meta"],
-            data["version"],
-            data["prompt_text"],
-            data["description"],
-        )
+        with open(file) as f:
+            data = json.load(f)
+            return Prompt(
+                data["name"],
+                data["tags"],
+                data["meta"],
+                data["version"],
+                data["prompt_text"],
+                data["description"],
+            )
 
     @staticmethod
     def from_yaml(file: str):
@@ -50,10 +55,10 @@ class Prompt:
         Fetches the specified prompt from PromptHUB and
         returns a Prompt instance of it.
 
-        :param prompt_name: Name of the prompt to fetch from PromptHUB
+        :param name: Name of the prompt to fetch from PromptHUB
         :return: An instance of Prompt storing all its info
         """
-        url = f"https://prompthub.deepset.ai/api/prompts/{name}"
+        url = f"{MAIN_ENDPOINT}/prompts/{name}"
         res = requests.get(url, timeout=30)
         j = res.json()
         return Prompt(
