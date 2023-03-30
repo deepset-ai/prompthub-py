@@ -13,14 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Hatch
-        run: pip install hatch
+      - name: Install Poetry
+        run: pipx install poetry
 
-      - name: Build Haystack
-        run: hatch build
-
-      - name: Publish on PyPi
+      - name: Build and publish
         env:
-          HATCH_INDEX_USER: __token__
-          HATCH_INDEX_AUTH: ${{ secrets.PYPI_API_TOKEN }}
-        run: hatch publish -y
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: poetry publish --build -u __token__ -p $PYPI_API_TOKEN
