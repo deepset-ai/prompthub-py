@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+
+      - name: Install Poetry
+        run: pipx install poetry==1.2.0
+
+      - name: Install dependencies
+        run: poetry install --with=dev
+
+      - name: Run Prompt Hub locally
+        run: docker run -d -p80:80 --volume $PWD/test/fake_prompts:/prompts deepset/prompthub
+
+      - name: Run tests
+        run: poetry run pytest test
