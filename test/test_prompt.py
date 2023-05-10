@@ -1,9 +1,9 @@
-from prompthub.prompt import Prompt, from_json, from_yaml, fetch
+from prompthub_py.prompt import Prompt
 
 
 def test_from_json(test_root):
     json_prompt = test_root / "fake_prompts" / "fake_prompt.json"
-    p = from_json(str(json_prompt))
+    p = Prompt.from_json(str(json_prompt))
     assert p.name == "deepset/question-answering"
     assert p.tags == ["question-answering"]
     assert p.meta == {"authors": ["vblagoje"]}
@@ -21,7 +21,7 @@ def test_from_json(test_root):
 
 def test_from_yaml(test_root):
     yaml_prompt = test_root / "fake_prompts" / "fake_prompt.yml"
-    p = from_yaml(str(yaml_prompt))
+    p = Prompt.from_yaml(str(yaml_prompt))
     assert p.name == "deepset/question-answering"
     assert p.tags == ["question-answering"]
     assert p.meta == {"authors": ["vblagoje"]}
@@ -38,7 +38,7 @@ def test_from_yaml(test_root):
 
 
 def test_fetch():
-    p = fetch("deepset/question-answering")
+    p = Prompt.fetch("deepset/question-answering")
     assert p.name == "deepset/question-answering"
     assert p.tags == ["question-answering"]
     assert p.meta == {"authors": ["vblagoje"]}

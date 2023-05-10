@@ -15,20 +15,20 @@ pip install prompthub-py
 Then you can import `Prompt`, that class is all you're going to need.
 
 ```python
-import prompthub
+from prompthub_py.prompt import Prompt
 
 # To load from a JSON file
-p = prompthub.from_json("./path/to/my/prompt.json")
+p = Prompt.from_json("./path/to/my/prompt.json")
 
 
 # To load from a YAML file
-p = prompthub.from_yaml("./path/to/my/prompt.yaml")
+p = Prompt.from_yaml("./path/to/my/prompt.yaml")
 
 
 # To load from Prompt Hub
-p = prompthub.fetch("deepset/question-answering")
+p = Prompt.fetch("deepset/question-answering")
 
-# To get the prompt text (see Prompt class)
+# To get the prompt text
 p.text
 ```
 
