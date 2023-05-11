@@ -4,7 +4,7 @@ version = "1.0.0"
 description = ""
 authors = ["deepset.ai"]
 readme = "README.md"
-packages = [{ include = "prompthub_py" }]
+packages = [{ include = "prompthub" }]
 license = "Apache-2.0"
 
 [tool.poetry.dependencies]
