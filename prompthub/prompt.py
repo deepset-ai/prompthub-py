@@ -50,16 +50,18 @@ def from_yaml(file: str):
         )
 
 
-def fetch(name: str):
+def fetch(name: str, timeout: float = 30.0):
     """
     Fetches the specified prompt from PromptHUB and
     returns a Prompt instance of it.
 
     :param name: Name of the prompt to fetch from PromptHUB
+    :param timeout: (optional) How many seconds to wait for the server to send data
+        before giving up.
     :return: An instance of Prompt storing all its info
     """
     url = f"{MAIN_ENDPOINT}/prompts/{name}"
-    res = requests.get(url, timeout=30)
+    res = requests.get(url, timeout=timeout)
     j = res.json()
     return Prompt(
         j["name"],

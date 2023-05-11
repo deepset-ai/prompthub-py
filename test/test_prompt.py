@@ -1,4 +1,6 @@
-from prompthub.prompt import Prompt, from_json, from_yaml, fetch
+import requests
+from unittest.mock import MagicMock
+from prompthub.prompt import Prompt, from_json, from_yaml, fetch, MAIN_ENDPOINT
 
 
 def test_from_json(test_root):
@@ -52,3 +54,10 @@ def test_fetch():
     assert (
         p.description == "A simple prompt to answer a question given a set of documents"
     )
+
+
+def test_fetch_timeout(monkeypatch):
+    mock_get = MagicMock()
+    monkeypatch.setattr(requests, "get", mock_get)
+    fetch("deepset/question-answering", timeout=1)
+    mock_get.assert_called_with(f"{MAIN_ENDPOINT}/prompts/deepset/question-answering", timeout=1)
