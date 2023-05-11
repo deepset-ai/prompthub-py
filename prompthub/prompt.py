@@ -62,6 +62,7 @@ def fetch(name: str, timeout: float = 30.0):
     """
     url = f"{MAIN_ENDPOINT}/prompts/{name}"
     res = requests.get(url, timeout=timeout)
+    res.raise_for_status()
     j = res.json()
     return Prompt(
         j["name"],

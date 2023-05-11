@@ -1,6 +1,6 @@
 import requests
 from unittest.mock import MagicMock
-from prompthub.prompt import Prompt, from_json, from_yaml, fetch, MAIN_ENDPOINT
+from prompthub.prompt import from_json, from_yaml, fetch, MAIN_ENDPOINT
 
 
 def test_from_json(test_root):
