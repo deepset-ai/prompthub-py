@@ -7,7 +7,7 @@ import yaml
 import requests
 
 
-MAIN_ENDPOINT = os.getenv("PROMPTHUB_MAIN_ENDPOINT", "http://api.prompthub.deepset.ai")
+MAIN_ENDPOINT = os.getenv("PROMPTHUB_MAIN_ENDPOINT", "https://api.prompthub.deepset.ai")
 
 
 @dataclass
