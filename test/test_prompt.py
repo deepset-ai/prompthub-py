@@ -1,6 +1,15 @@
+import os
+import pytest
 import requests
 from unittest.mock import MagicMock
-from prompthub.prompt import from_json, from_yaml, fetch, MAIN_ENDPOINT
+import prompthub
+from prompthub.prompt import Prompt, from_json, from_yaml, to_yaml, fetch, MAIN_ENDPOINT
+
+
+@pytest.fixture
+def no_cache(monkeypatch):
+    monkeypatch.setattr(prompthub.prompt, "CACHE_ENABLED", False)
+    
 
 
 def test_from_json(test_root):
@@ -39,7 +48,25 @@ def test_from_yaml(test_root):
     )
 
 
-def test_fetch():
+def test_to_yaml(test_root, tmp_path):
+    prompt = Prompt(
+        "deepset/question-answering",
+        ["question-answering"],
+        {"authors": ["vblagoje"]},
+        "v0.1.1",
+        """Given the context please answer the question. Context: {join(documents)};
+  Question: {query};
+  Answer:""",
+        "A simple prompt to answer a question given a set of documents"
+    )
+    path = tmp_path / "deepset/question-answering.yaml"
+    
+    os.makedirs(path.parent, exist_ok=True)
+    to_yaml(prompt, path)
+    assert open(test_root / "fake_prompts" / "fake_prompt_sorted.yml", 'r').read() == open(path, 'r').read()
+
+
+def test_fetch_no_cache(no_cache):
     p = fetch("deepset/question-answering")
     assert p.name == "deepset/question-answering"
     assert p.tags == ["question-answering"]
@@ -56,7 +83,7 @@ def test_fetch():
     )
 
 
-def test_fetch_timeout(monkeypatch):
+def test_fetch_timeout(no_cache, monkeypatch):
     mock_get = MagicMock()
     monkeypatch.setattr(requests, "get", mock_get)
     fetch("deepset/question-answering", timeout=1)
