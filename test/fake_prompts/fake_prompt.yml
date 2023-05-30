@@ -1,5 +1,5 @@
 name: deepset/question-answering
-prompt_text: |
+text: |
   Given the context please answer the question. Context: {join(documents)};
   Question: {query};
   Answer:

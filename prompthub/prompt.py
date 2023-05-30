@@ -23,14 +23,12 @@ class Prompt:
     text: str
     description: str
 
-
     def to_yaml(self, file: str):
-        with open(file, 'w') as f:
+        with open(file, "w") as f:
             yaml.safe_dump(asdict(self), f)
 
-
     def to_json(self, file: str):
-        with open(file, 'w') as f:
+        with open(file, "w") as f:
             json.dump(asdict(self), f)
 
 
@@ -42,7 +40,7 @@ def from_json(file: str):
             data["tags"],
             data["meta"],
             data["version"],
-            data["prompt_text"],
+            data["text"],
             data["description"],
         )
 
@@ -55,7 +53,7 @@ def from_yaml(file: str):
             data["tags"],
             data["meta"],
             data["version"],
-            data["prompt_text"],
+            data["text"],
             data["description"],
         )
 
@@ -79,6 +77,6 @@ def fetch(name: str, timeout: float = 30.0):
         j["tags"],
         j["meta"],
         j["version"],
-        j["prompt_text"],
+        j["text"],
         j["description"],
     )
