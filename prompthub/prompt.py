@@ -1,5 +1,5 @@
 from typing import Dict, List
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 import json
 import os
 
@@ -22,6 +22,16 @@ class Prompt:
     version: str
     text: str
     description: str
+
+
+    def to_yaml(self, file: str):
+        with open(file, 'w') as f:
+            yaml.safe_dump(asdict(self), f)
+
+
+    def to_json(self, file: str):
+        with open(file, 'w') as f:
+            json.dump(asdict(self), f)
 
 
 def from_json(file: str):
