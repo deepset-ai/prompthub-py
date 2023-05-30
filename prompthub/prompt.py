@@ -58,7 +58,7 @@ def from_yaml(file: str):
             data["prompt_text"],
             data["description"],
         )
-    
+
 
 def fetch(name: str, timeout: float = 30.0):
     """
