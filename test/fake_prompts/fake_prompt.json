@@ -1,8 +1,8 @@
 {
   "name": "deepset/question-answering",
   "tags": ["question-answering"],
-  "meta": { "authors": ["vblagoje"] },
-  "version": "v0.1.1",
-  "prompt_text": "Given the context please answer the question. Context: {join(documents)};\nQuestion: {query};\nAnswer:\n",
+  "meta": { "authors": ["deepset"] },
+  "version": "0.1.1",
+  "text": "Given the context please answer the question. Context: {join(documents)};\nQuestion: {query};\nAnswer:\n",
   "description": "A simple prompt to answer a question given a set of documents"
 }

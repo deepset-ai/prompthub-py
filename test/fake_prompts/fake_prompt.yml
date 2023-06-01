@@ -1,5 +1,5 @@
 name: deepset/question-answering
-prompt_text: |
+text: |
   Given the context please answer the question. Context: {join(documents)};
   Question: {query};
   Answer:
@@ -8,5 +8,5 @@ tags:
   - question-answering
 meta:
   authors:
-    - vblagoje
-version: v0.1.1
+    - deepset
+version: "0.1.1"
