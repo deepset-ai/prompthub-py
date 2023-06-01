@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "prompthub-py"
-version = "3.0.1"
+version = "4.0.0"
 description = ""
 authors = ["deepset.ai"]
 readme = "README.md"
